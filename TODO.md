@@ -3,26 +3,16 @@ TODO
 
 ## v1.0
 
-* Changes to Django Kuma to use the kumascript proxy
-    * bug 730714: Caching in Kuma from kumascript
-    * bug 730715: Caching in kumascript from Kuma
-        * Loader abstraction class for document fetch, like template loader
+* Accept JSON object parameter for macros
+    * eg. {{ languages( { "ja": "Ja/Using_XMLHttpRequest", "de": "de/foo", "pl": "pl/foo" } ) }}
 
-* Honor Vary: header in response caching
-
-* Build switchable response cache backends
-    * locmem
-    * memcache
-    * filesystem
-    * ?
-
-* bug 733831: Report to user when kumascript has errors
-    * Hidden panel? Session flash message?
+* More backends for response caching
+    * memcache backend, local memory with LRU backend
 
 * Problem with kuma page slugs containing spaces
 
-* More closely consider issues of case-sensitivity in Kuma doc slugs and
-  kumascript template names.
+* Problem with HTML encoding, can't use an URL with ampersands as the parameter
+  to a macro.
 
 * bug 730707: Complete the MindTouch-compat API
     * Continue burning through most-used and longest-source MDN templates
