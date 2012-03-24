@@ -29,6 +29,7 @@ module.exports = nodeunit.testCase({
         });
     },
 
+    /*
     "POSTing document to service should be processed as expected": function (test) {
         var expected_fn = __dirname + '/fixtures/documents/document1-expected.txt',
             source_fn   = __dirname + '/fixtures/documents/document1.txt',
@@ -43,6 +44,36 @@ module.exports = nodeunit.testCase({
                     }
                 );
             });
+        });
+    },
+    */
+
+    "Template and document source should be accepted in multipart POST for preview": function (test) {
+        var test_fn = __dirname + '/fixtures/server-preview-1.txt';
+        fs.readFile(test_fn, 'utf8', function (err, data) {
+            if (err) { throw err; }
+            
+            var parts = (''+data).split('---'),
+                template_src = parts[0],
+                document_src = parts[1],
+                expected = parts[2],
+                result_url  = 'http://localhost:9000/docs/';
+
+            var req_opts = {
+                url: result_url,
+                multipart: [
+                    { 'content-disposition': 'form-data; name="add"',
+                        body: template_src },
+                    { 'content-disposition': 'form-data; name="_document"',
+                        body: document_src }
+                ]
+            };
+            request.post(req_opts, function (err, resp, result) {
+                util.debug("RESULT\n"+result);
+                test.equal(result.trim(), expected.trim());
+                test.done();
+            });
+            
         });
     },
 
