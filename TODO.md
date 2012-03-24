@@ -3,9 +3,6 @@ TODO
 
 ## v1.0
 
-* Accept JSON object parameter for macros
-    * eg. {{ languages( { "ja": "Ja/Using_XMLHttpRequest", "de": "de/foo", "pl": "pl/foo" } ) }}
-
 * More backends for response caching
     * memcache backend, local memory with LRU backend
 
@@ -14,13 +11,12 @@ TODO
 * Problem with HTML encoding, can't use an URL with ampersands as the parameter
   to a macro.
 
+* Call templates from templates
+
+* Problem with kuma page slugs containing spaces
+
 * bug 730707: Complete the MindTouch-compat API
     * Continue burning through most-used and longest-source MDN templates
-
-* Make API libs wiki-editable? (eg. wiki, page, etc)
-    * Shared libraries in wiki source?
-    * Load from templates with a node.js-like require()?
-        * kuma.require?
 
 * General kumascript env and metadata vars in headers with JSON-encoded values?
     * For use by the API methods.
@@ -31,16 +27,20 @@ TODO
         * x-kumascript-var-username: "lmorchard"
         * x-kumascript-var-tags: [ "JavaScript", "HTML5", "CSS" ]
 
+* Make API libs wiki-editable? (eg. wiki, page, etc)
+    * Shared libraries in wiki source?
+    * Load from templates with a node.js-like require()?
+        * kuma.require?
+
 * bug 731655: Handle language alternates in markup?
     * eg. span lang="en-US"; lang="zh-CN"; lang="*"
     * See also Template:JSInherits
 
-* Move `run.js` to `bin/kumascript`
-    * Add a bin section to package.json
-
 * Think about relaxing Bleach on Template:* pages, just apply on output?
 
 ## Future
+
+* Revisit Sandbox, or some kind of process separation for executing templates
 
 * Implement stale-while-revalidate for response caching?
     * <http://www.mnot.net/blog/2007/12/12/stale>
@@ -73,4 +73,7 @@ TODO
     * Not that there's a known problem, but CoffeeScript uses Jison.
     * PEG grammar is much more readable, though, IMO.
 
-* Revisit Sandbox, or some kind of process separation for executing templates
+* Demote contents of `lib/kumascript` to just `lib` and update `package.json`
+
+* Move `run.js` to `bin/kumascript`
+    * Add a bin section to package.json
