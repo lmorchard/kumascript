@@ -21,10 +21,30 @@ module.exports = nodeunit.testCase({
 
     "JS sandboxed by node.js should work": function (test) {
         testTemplateClass(test, ks_templates.JSTemplate, 'templates2.txt');
+    },
+
+    "Peek at what EJS does for source": function (test) {
+        fs.readFile(__dirname + '/fixtures/templates3.txt', function (err, data) {
+            var ejs = require('ejs');
+            
+            var js_src = ejs.parse(''+data);
+            util.debug("\n"+js_src);
+
+            try {
+                var tmpl = ejs.compile(''+data);
+                var result = tmpl({ alpha: 'ALPHA', beta: 'BETA' });
+                util.debug("RESULT " + util.inspect(result));
+            } catch (e) {
+                util.debug("ERROR " + util.inspect([
+                    e.message, e.fileName, e.lineNumber    
+                ]));
+            }
+
+            test.done();
+        });
     }
 
     // TODO: Template loading from filesystem
-    // TODO: Template loading via HTTP (preload, async, before processing?)
 });
 
 function testTemplateClass(test, t_cls, t_fn) {

@@ -1,0 +1,12 @@
+<%
+var foo = 'this is a test';
+%>
+Woogitie
+<%
+foob
+%>
+<% if (true) { %>
+What does "<%- foo %>" mean? Can i?
+<% } else { %>
+Gargle.
+<% } %>
