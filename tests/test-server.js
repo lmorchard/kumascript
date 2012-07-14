@@ -190,6 +190,23 @@ module.exports = nodeunit.testCase({
 
     },
 
+    "Server should commit selfdestruct if it takes too long to issue a response": function (test) {
+        var selfdestruct_called = false;
+        this.server.options.timeout = 50;
+        this.server.selfdestruct = function () {
+            selfdestruct_called = true;
+            test.done();
+        }
+        var req_opts = {
+            method: "GET",
+            uri: 'http://localhost:9000/docs/trigger-selfdestruct',
+            headers: { "X-FireLogger": "1.2" }
+        };
+        request(req_opts, function (err, resp, result) {
+            util.debug("RESULT " + result);
+        })
+    },
+
     // Build both a service instance and a document server for test fixtures.
     setUp: function (next) {
         this.test_server = ks_test_utils.createTestServer();
